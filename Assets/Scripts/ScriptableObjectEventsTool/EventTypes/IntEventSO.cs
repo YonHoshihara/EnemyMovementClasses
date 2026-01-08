@@ -1,13 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/Int Event",
-    fileName = "NewIntEvent"
-)]
 public class IntEventSO : ScriptableObject
 {
     private event Action<int> listeners;
+    
+    [SerializeField]
     private int value;
     public void Trigger(int newvalue)
     {

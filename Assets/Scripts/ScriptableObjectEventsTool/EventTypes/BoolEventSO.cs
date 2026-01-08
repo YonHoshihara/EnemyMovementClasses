@@ -1,13 +1,10 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/Bool Event",
-    fileName = "NewBoolEvent"
-)]
 public class BoolEventSO : ScriptableObject
 {
     private event Action<bool> listeners;
+    [SerializeField]
     private bool value;
 
     public void Trigger(bool newValue)

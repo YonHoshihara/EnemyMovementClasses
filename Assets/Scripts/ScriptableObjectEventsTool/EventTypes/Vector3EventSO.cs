@@ -1,13 +1,12 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/Vector3 Event",
-    fileName = "NewVector3Event"
-)]
 public class Vector3EventSO : ScriptableObject
 {
+
     private event Action<Vector3> listeners;
+    
+    [SerializeField]
     private Vector3 value;
 
     public void Trigger(Vector3 newValue)

@@ -1,15 +1,12 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/Double Event",
-    fileName = "NewDoubleEvent"
-)]
 public class DoubleEventSO : ScriptableObject
 {
     private event Action<double> listeners;
+    
+    [SerializeField]
     private double value;
-
     public void Trigger(double newValue)
     {
         value = newValue;

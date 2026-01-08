@@ -1,15 +1,12 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/String Event",
-    fileName = "NewStringEvent"
-)]
 public class StringEventSO : ScriptableObject
 {
     private event Action<string> listeners;
+    
+    [SerializeField]
     private string value;
-
     public void Trigger(string newValue)
     {
         value = newValue;

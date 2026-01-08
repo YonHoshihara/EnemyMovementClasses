@@ -3,12 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/Void Event",
-    fileName = "NewGameObjectEvent"
-)]
-
-public class VoidEventSO : MonoBehaviour
+public class VoidEventSO : ScriptableObject
 {
     private event Action listeners;
 

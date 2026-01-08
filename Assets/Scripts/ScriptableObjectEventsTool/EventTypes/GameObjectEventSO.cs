@@ -1,13 +1,10 @@
 using System;
 using UnityEngine;
-
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/GameObject Event",
-    fileName = "NewGameObjectEvent"
-)]
 public class GameObjectEventSO : ScriptableObject
 {
     private event Action<GameObject> listeners;
+    
+    [SerializeField]
     private GameObject value;
 
     public void Trigger(GameObject newValue)

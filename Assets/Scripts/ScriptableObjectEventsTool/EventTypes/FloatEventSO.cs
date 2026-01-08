@@ -1,13 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(
-    menuName = "SriptableObjectEvents/Float Event",
-    fileName = "NewIntEvent"
-)]
 public class FloatEventSO : ScriptableObject
 {
     private event Action<float> listeners;
+
+    [SerializeField]
     private float value;
     public void Trigger(float newvalue)
     {
