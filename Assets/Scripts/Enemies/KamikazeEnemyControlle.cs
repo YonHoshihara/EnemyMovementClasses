@@ -69,7 +69,7 @@ public class KamikazeEnemyControlle : MonoBehaviour
     {
         if (!IsVisibleFromCamera())
         {
-            Destroy(gameObject);
+            OnDeath();
         }
     }
 
