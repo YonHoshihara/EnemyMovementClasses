@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolEnemyController: MonoBehaviour
+public class PatrolEnemyController : MonoBehaviour
 {
-    [Header("Patrol Settings")]
     [SerializeField] private float patrolRange = 3f;
     [SerializeField] private float moveSpeed = 2f;
-
-    [Header("Options")]
     [SerializeField] private bool startMovingRight = true;
+    [SerializeField] Animator animator;
+    private BoxCollider2D boxCollider;
+    private Rigidbody2D rb;
+    private bool canMove = true;
 
     private Vector3 startPosition;
     private int direction;
@@ -18,6 +19,8 @@ public class PatrolEnemyController: MonoBehaviour
     {
         startPosition = transform.position;
         direction = startMovingRight ? 1 : -1;
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         UpdateFacing();
     }
 
@@ -28,8 +31,9 @@ public class PatrolEnemyController: MonoBehaviour
 
     private void Patrol()
     {
-        transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
+        if (!canMove) return;
 
+        transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
         float distanceFromStart = transform.position.x - startPosition.x;
 
         if (Mathf.Abs(distanceFromStart) >= patrolRange)
@@ -50,5 +54,16 @@ public class PatrolEnemyController: MonoBehaviour
         scale.x = Mathf.Abs(scale.x) * direction;
         transform.localScale = scale;
     }
+
+    public void OnDeath()
+    {
+        canMove = false;
+        rb.bodyType = RigidbodyType2D.Static;
+        boxCollider.enabled = false;
+        animator.SetTrigger("Death");
+        Destroy(gameObject, 1f);
+    }
+
+    
 
 }

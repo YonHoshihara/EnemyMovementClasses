@@ -1,35 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LifeContrroller : MonoBehaviour
 {
+
     [SerializeField]
     private int _maxLife;
 
     [SerializeField]
     private int _currentLife;
 
-
-
+    public UnityEvent onGetDamage;
+    
+    public UnityEvent onDeath;
     void Start()
     {
         _currentLife = _maxLife;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
     public void GetDamage(int damage)
     {
-        
-        _currentLife -= damage;
-        if(_currentLife <= 0){
 
+        _currentLife -= damage;
+        if (_currentLife <= 0) {
+            onDeath?.Invoke();
+        }
+        else
+        {
+            onGetDamage?.Invoke();
         }
     }
 }

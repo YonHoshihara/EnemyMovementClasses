@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7909726482039312998}
   - component: {fileID: 8689155120173452142}
-  - component: {fileID: 2039842597694207177}
   - component: {fileID: 4339087252481219179}
+  - component: {fileID: 4367033716819942186}
+  - component: {fileID: 8001128006819447394}
+  - component: {fileID: 6904040968181411608}
   m_Layer: 8
   m_Name: prefab_PatrolEnemy
   m_TagString: Untagged
@@ -62,21 +64,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2039842597694207177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423865329935399213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246bb9baf757dbf458983714e07b2f62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolRange: 1
-  moveSpeed: 2
-  startMovingRight: 1
 --- !u!61 &4339087252481219179
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -122,6 +109,70 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53075105, y: 0.8730266}
   m_EdgeRadius: 0
+--- !u!114 &4367033716819942186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423865329935399213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e15cef815691044bc185cb29e6543e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLife: 0
+  _currentLife: 0
+  onGetDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8001128006819447394}
+        m_TargetAssemblyTypeName: PatrolEnemyController, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8001128006819447394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423865329935399213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5da32e8fc3540941b0b4553e289edd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolRange: 2
+  moveSpeed: 2
+  startMovingRight: 1
+  animator: {fileID: 4256310470919229688}
+--- !u!114 &6904040968181411608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423865329935399213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775eb19725ce36d4aa6f50b7f92ff78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeController: {fileID: 4367033716819942186}
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &8927507591851151578
 GameObject:
   m_ObjectHideFlags: 0
