@@ -1,5 +1,4 @@
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -17,8 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField]
-    private Animator animator;
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
 
     private Rigidbody2D rb;
 
@@ -29,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;
     private float jumpBufferCounter;
 
+    // attack state
+    private bool isAttacking;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -38,16 +40,16 @@ public class PlayerController : MonoBehaviour
     {
         ReadInput();
         UpdateJumpBuffer();
+        HandleAttack();
     }
 
     private void FixedUpdate()
     {
-        Move();
         CheckGround();
         HandleJump();
+        Move();
     }
 
-    // ---------------- INPUT ----------------
     private void ReadInput()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -61,13 +63,18 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferCounter > 0)
             jumpBufferCounter -= Time.deltaTime;
     }
-
-    // ---------------- MOVEMENT ----------------
     private void Move()
     {
+        if (isAttacking)
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+            animator.SetFloat("Speed", 0f);
+            return;
+        }
+
         rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);
-        animator.SetFloat("Speed", horizontal);
-        // Flip visual
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
         if (horizontal != 0)
         {
             Vector3 scale = transform.localScale;
@@ -76,27 +83,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ---------------- JUMP ----------------
     private void HandleJump()
     {
-        // atualiza coyote time
+        if (isAttacking)
+            return;
+
         if (grounded)
             coyoteCounter = coyoteTime;
         else
             coyoteCounter -= Time.fixedDeltaTime;
 
-        // executa o pulo
         if (jumpBufferCounter > 0 && coyoteCounter > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
             jumpBufferCounter = 0;
             coyoteCounter = 0;
         }
+
         animator.SetFloat("VerticalVelocity", rb.velocity.y);
     }
 
-    // ---------------- GROUND ----------------
+    private void HandleAttack()
+    {
+        if (Input.GetButtonDown("Fire1") && !isAttacking)
+        {
+            isAttacking = true;
+            animator.SetTrigger("Attack");
+        }
+    }
+
+    public void OnAttackAnimationFinished()
+    {
+        isAttacking = false;
+    }
     private void CheckGround()
     {
         grounded = Physics2D.OverlapCircle(
@@ -104,6 +123,7 @@ public class PlayerController : MonoBehaviour
             groundRadius,
             groundLayer
         );
+
         animator.SetBool("IsGrounded", grounded);
     }
 
