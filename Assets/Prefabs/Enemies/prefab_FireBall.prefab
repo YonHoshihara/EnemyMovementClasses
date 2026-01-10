@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLife: 1
-  _currentLife: 1
+  _currentLife: 0
   onGetDamage:
     m_PersistentCalls:
       m_Calls: []
