@@ -14,11 +14,13 @@ public class ShooterEnemyController : MonoBehaviour
     private Transform player;
     private float nextAttackTime;
     private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     private int direction;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();   
     }
 
@@ -60,6 +62,7 @@ public class ShooterEnemyController : MonoBehaviour
 
     public void OnDeath()
     {
+        boxCollider.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
         animator.SetTrigger("Death");
     }

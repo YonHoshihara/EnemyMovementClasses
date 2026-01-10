@@ -157,7 +157,7 @@ MonoBehaviour:
   lifeController: {fileID: 7900698928204725797}
   damageLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 2688
 --- !u!114 &3148121106165780146
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,9 +15,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-
+    
+    [Header("Animator")]
+    [SerializeField] private LifeContrroller lifeController;
+    
     [Header("Animator")]
     [SerializeField] private Animator animator;
+
+    [SerializeField]
+    private VoidEventSO onPlayerHitsEnemy;
 
     private Rigidbody2D rb;
 
@@ -28,8 +34,10 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;
     private float jumpBufferCounter;
 
-    // attack state
+    // states
     private bool isAttacking;
+    private bool isHurt;
+    private bool isDead;
 
     private void Awake()
     {
@@ -38,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (isDead || isHurt) return;
+
         ReadInput();
         UpdateJumpBuffer();
         HandleAttack();
@@ -45,7 +55,21 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         CheckGround();
+
+        if (isHurt)
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+            animator.SetFloat("Speed", 0f);
+            return;
+        }
+
         HandleJump();
         Move();
     }
@@ -85,8 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (isAttacking)
-            return;
+        if (isAttacking) return;
 
         if (grounded)
             coyoteCounter = coyoteTime;
@@ -105,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetButtonDown("Fire1") && !isAttacking)
+        if (Input.GetButtonDown("Fire1") && !isAttacking && !isHurt && !isDead)
         {
             isAttacking = true;
             animator.SetTrigger("Attack");
@@ -114,8 +137,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttackAnimationFinished()
     {
+        if (isDead) return;
         isAttacking = false;
     }
+
     private void CheckGround()
     {
         grounded = Physics2D.OverlapCircle(
@@ -127,6 +152,42 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsGrounded", grounded);
     }
 
+    public void OnHurt()
+    {
+        if (isDead || isHurt) return;
+
+        isHurt = true;
+        isAttacking = false;
+
+        animator.SetBool("IsHurt", true);
+        animator.SetTrigger("Hurt");
+    }
+
+    public void OnHurtAnimationFinished()
+    {
+        if (isDead) return;
+
+        isHurt = false;
+        animator.SetBool("IsHurt", false);
+    }
+
+    public void OnDeath()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        isAttacking = false;
+        isHurt = false;
+
+        rb.velocity = Vector2.zero;
+
+        animator.SetBool("IsHurt", false);
+        animator.SetTrigger("Death");
+    }
+    public void OnPlayerHitsEnemyListener()
+    {
+        lifeController.RegenLife(1);
+    }
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {

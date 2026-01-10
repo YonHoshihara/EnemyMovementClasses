@@ -172,7 +172,7 @@ MonoBehaviour:
   lifeController: {fileID: 4367033716819942186}
   damageLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
 --- !u!1 &8927507591851151578
 GameObject:
   m_ObjectHideFlags: 0

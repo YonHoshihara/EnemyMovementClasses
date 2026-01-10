@@ -7,7 +7,12 @@ public class PlayerAnimationEventController : MonoBehaviour
    [SerializeField]
    private PlayerController controller;
   public void OnAttackEnd()
-   {
-        controller.OnAttackAnimationFinished();
-   }
+  {
+     controller.OnAttackAnimationFinished();
+  }
+
+  public void OnHurtEnd()
+  {
+     controller.OnHurtAnimationFinished();
+  }
 }

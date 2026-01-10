@@ -309,7 +309,7 @@ MonoBehaviour:
   lifeController: {fileID: 6451826303140162817}
   damageLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
 --- !u!114 &3136250562959676025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 4
-  attackCooldown: 1
+  attackCooldown: 1.5
   animator: {fileID: 3099776491041567232}
   fireballPrefab: {fileID: 2603184404749989396, guid: a79ebe740093a6142a83200f98fe8bd3, type: 3}
   fireballSpawnPoint: {fileID: 5156738586195531531}

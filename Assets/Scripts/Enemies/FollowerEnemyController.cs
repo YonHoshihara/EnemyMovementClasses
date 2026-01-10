@@ -58,8 +58,8 @@ public class FollowerEnemyController : MonoBehaviour
         scale.x = Mathf.Abs(scale.x) * dir;
         transform.localScale = scale;
     }
-
-    public void OnDeath() { 
+    
+    public void OnDeath() {
         canMove = false;
         Stop();
         rb.bodyType = RigidbodyType2D.Static;

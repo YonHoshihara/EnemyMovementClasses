@@ -170,7 +170,7 @@ MonoBehaviour:
   lifeController: {fileID: 1998011069869338963}
   damageLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
 --- !u!114 &2432793818479082375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   chaseDistance: 5
   moveSpeed: 3
   animator: {fileID: 6407309457955350536}
+  onPlayerHitEnemy: {fileID: 11400000, guid: 420b853ef9afd20489dc5ee2d1cb0bda, type: 2}
 --- !u!1 &7401452966155871137
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,4 +32,9 @@ public class LifeContrroller : MonoBehaviour
             onGetDamage?.Invoke();
         }
     }
+
+    public void RegenLife(int life)
+    {
+        _currentLife += life;
+    }
 }

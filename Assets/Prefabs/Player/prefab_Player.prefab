@@ -181,7 +181,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  lifeController: {fileID: 0}
   animator: {fileID: 6374809994151449270}
+  onPlayerHitsEnemy: {fileID: 11400000, guid: 420b853ef9afd20489dc5ee2d1cb0bda, type: 2}
 --- !u!1 &3683816704301214197
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6037409041775960197}
   - component: {fileID: 9063314621957544813}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: AttackHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
